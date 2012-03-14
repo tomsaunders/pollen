@@ -21,13 +21,14 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo __('CakePHP: the rapid development php framework:'); ?>
+		<?php echo __('Pollenizer Interview Test: '); ?>
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake.generic');
+		echo $this->Html->css('pollenizer');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -37,7 +38,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link(__('CakePHP: the rapid development php framework'), 'http://cakephp.org'); ?></h1>
+			<h1><?php echo $this->Html->link(__('Pollenizer Interview Test'), '/'); ?></h1>
 		</div>
 		<div id="content">
 

@@ -6,6 +6,11 @@ App::uses('AppController', 'Controller');
  * @property Photo $Photo
  */
 class PhotosController extends AppController {
+	
+	protected $paginate = [
+		'limit' => 5,
+		'conditions' => ['text' => 'Pollenizer']
+	]; 
 
 
 /**
@@ -14,8 +19,18 @@ class PhotosController extends AppController {
  * @return void
  */
 	public function index() {
+		if($this->data){
+			$this->paginate['conditions']['text'] = $this->data['search'];
+			$this->Session->write('search', $this->data['search']);
+		}
+		else if($this->Session->check('search')){
+			$this->paginate['conditions']['text'] = $this->Session->read('search');
+		}
+		$this->request->data['search'] = $this->paginate['conditions']['text'];
 		$this->Photo->recursive = 0;
 		$this->set('photos', $this->paginate());
+		$this->set('print', $this->Photo->find('count'));
+		
 	}
 
 /**
@@ -30,67 +45,5 @@ class PhotosController extends AppController {
 			throw new NotFoundException(__('Invalid photo'));
 		}
 		$this->set('photo', $this->Photo->read(null, $id));
-	}
-
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Photo->create();
-			if ($this->Photo->save($this->request->data)) {
-				$this->Session->setFlash(__('The photo has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The photo could not be saved. Please, try again.'));
-			}
-		}
-	}
-
-/**
- * edit method
- *
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		$this->Photo->id = $id;
-		if (!$this->Photo->exists()) {
-			throw new NotFoundException(__('Invalid photo'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Photo->save($this->request->data)) {
-				$this->Session->setFlash(__('The photo has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The photo could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->Photo->read(null, $id);
-		}
-	}
-
-/**
- * delete method
- *
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
-		$this->Photo->id = $id;
-		if (!$this->Photo->exists()) {
-			throw new NotFoundException(__('Invalid photo'));
-		}
-		if ($this->Photo->delete()) {
-			$this->Session->setFlash(__('Photo deleted'));
-			$this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Photo was not deleted'));
-		$this->redirect(array('action' => 'index'));
 	}
 }

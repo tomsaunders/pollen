@@ -1,0 +1,13 @@
+2012-03-14 11:34:02 Error: no calculate
+2012-03-14 11:51:28 Error: calculating!!!
+2012-03-14 12:59:41 Error: [MissingDatasourceConfigException] The datasource configuration "test" was not found in database.php
+#0 D:\webspace\cake2.1.0\lib\Cake\Model\ConnectionManager.php(94): ConnectionManager::_getConnectionObject('test')
+#1 D:\webspace\cake2.1.0\lib\Cake\TestSuite\Fixture\CakeFixtureManager.php(90): ConnectionManager::getDataSource('test')
+#2 D:\webspace\cake2.1.0\lib\Cake\TestSuite\Fixture\CakeFixtureManager.php(69): CakeFixtureManager->_initDb()
+#3 D:\webspace\cake2.1.0\lib\Cake\TestSuite\CakeTestRunner.php(51): CakeFixtureManager->fixturize(Object(PhotoTestCase))
+#4 D:\webspace\cake2.1.0\lib\Cake\TestSuite\CakeTestSuiteCommand.php(110): CakeTestRunner->doRun(Object(PHPUnit_Framework_TestSuite), Array)
+#5 D:\webspace\cake2.1.0\lib\Cake\TestSuite\CakeTestSuiteDispatcher.php(250): CakeTestSuiteCommand->run(Array)
+#6 D:\webspace\cake2.1.0\lib\Cake\TestSuite\CakeTestSuiteDispatcher.php(98): CakeTestSuiteDispatcher->_runTestCase()
+#7 D:\webspace\cake2.1.0\lib\Cake\TestSuite\CakeTestSuiteDispatcher.php(115): CakeTestSuiteDispatcher->dispatch()
+#8 D:\webspace\pollenizer\webroot\test.php(94): CakeTestSuiteDispatcher::run()
+#9 {main}
